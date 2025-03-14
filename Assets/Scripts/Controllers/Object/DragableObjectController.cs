@@ -5,31 +5,31 @@ public sealed class DragableObjectController : MonoBehaviour, IDragableObject, I
 {
     [SerializeField] private LayerMask solidLayers;
     [SerializeField] private Rigidbody2D rb2d;
-    [SerializeField] private Collider2D collider2d;
 
     private SurfaceModel[] surfaces;
     private bool isFreeFall = true;
+    private float heightLimit;
 
     private bool isGoToNearestPoint;
     private Vector2 nearestPoint;
     private Vector2 startPoint;
     private float progress;
 
-    private Collider2D[] contactPoints = new Collider2D[16];
 
     private float attractionEdgeSquared;
     private float lerpToPointSpeed;
 
-    public void InjectSurfaces(SurfaceModel[] surfaceModels, float attractionEdge, float lerpSpeed)
+    public void InjectParameters(SurfacesInitModel model, float globalHeightLimit)
     {
-        attractionEdgeSquared = attractionEdge * attractionEdge;
-        lerpToPointSpeed = lerpSpeed;
+        attractionEdgeSquared = model.AttractionEdge * model.AttractionEdge;
+        lerpToPointSpeed = model.LerpSpeed;
+        heightLimit = globalHeightLimit;
 
-        surfaces = new SurfaceModel[surfaceModels.Length];
+        surfaces = new SurfaceModel[model.SurfaceModels.Length];
 
-        for(int i = 0; i < surfaceModels.Length; i++)
+        for(int i = 0; i < model.SurfaceModels.Length; i++)
         {
-            surfaces[i] = surfaceModels[i];
+            surfaces[i] = model.SurfaceModels[i];
         }
     }
 
@@ -47,22 +47,6 @@ public sealed class DragableObjectController : MonoBehaviour, IDragableObject, I
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(isFreeFall)
-        {
-            var contactsCount = collider2d.GetContacts(contactPoints);
-
-            for(int i = 0; i < contactsCount; i++)
-            {
-                if (((1 << contactPoints[i].gameObject.layer) & solidLayers) != 0)
-                {
-                    SetIsFreeFall(false);
-                }
-            }
-        }
-    }
-
     public void LocalUpdate()
     {
         if (isFreeFall)
@@ -73,6 +57,11 @@ public sealed class DragableObjectController : MonoBehaviour, IDragableObject, I
                 nearestPoint = point;
                 startPoint = transform.position;
                 isGoToNearestPoint = true;
+            }
+
+            if(transform.position.y <= heightLimit)
+            {
+                SetIsFreeFall(false);
             }
         }
 
