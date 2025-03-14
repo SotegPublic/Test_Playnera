@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 384470743}
   - component: {fileID: 384470742}
   - component: {fileID: 384470746}
+  - component: {fileID: 384470747}
   m_Layer: 3
   m_Name: apple
   m_TagString: Untagged
@@ -372,9 +373,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0069878697, y: -0.012228787}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.14006206
+  m_Radius: 0.29097444
 --- !u!212 &384470744
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -459,6 +460,41 @@ MonoBehaviour:
     m_Bits: 128
   rb2d: {fileID: 384470742}
   collider2d: {fileID: 384470743}
+--- !u!58 &384470747
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384470741}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.43958315
 --- !u!1 &449857669
 GameObject:
   m_ObjectHideFlags: 0

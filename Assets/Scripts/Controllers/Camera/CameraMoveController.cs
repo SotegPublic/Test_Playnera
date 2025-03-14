@@ -81,7 +81,16 @@ public sealed class CameraMoveController : IGetDragNotifications, ILateUpdateble
 
     private void DragMove()
     {
-        var startX = inputModel.StartPosition.x;
+        var startX = 0f;
+
+        if (inputModel.StartPosition == Vector2.zero)
+        {
+            startX = inputModel.PointerPosition.x;
+        }
+        else
+        {
+            startX = inputModel.StartPosition.x;
+        }
         var currentX = inputModel.PointerPosition.x;
 
         var delta = currentX - startX;

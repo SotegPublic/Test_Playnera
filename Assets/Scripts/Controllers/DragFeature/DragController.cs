@@ -22,6 +22,7 @@ public sealed class DragController: IDisposable
         cameraDistance = Mathf.Abs(Camera.main.transform.position.z);
 
         inputModel.IsOnTouch += WhenTouchActionInvoke;
+        Physics2D.queriesHitTriggers = true;
     }
 
     private void WhenTouchActionInvoke(bool isTouchActive)
