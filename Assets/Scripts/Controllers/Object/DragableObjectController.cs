@@ -57,6 +57,7 @@ public sealed class DragableObjectController : MonoBehaviour, IDragableObject, I
                 nearestPoint = point;
                 startPoint = transform.position;
                 isGoToNearestPoint = true;
+                return;
             }
 
             if(transform.position.y <= heightLimit)
