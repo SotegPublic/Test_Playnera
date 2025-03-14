@@ -19,6 +19,12 @@
         mainController.SubscribeOnUpdate(userInputController);
         mainController.SubscribeOnUpdate(dragingObjectMoveController);
 
+        for(int i = 0; i < model.DragableObjects.Length; i++)
+        {
+            model.DragableObjects[i].InjectSurfaces(model.SurfacesInitModel.SurfaceModels, model.SurfacesInitModel.AttractionEdge, model.SurfacesInitModel.LerpSpeed);
+            mainController.SubscribeOnUpdate(model.DragableObjects[i]);
+        }
+
         mainController.SubscribeOnLateUpdate(cameraMoveController);
 
         mainController.SubscribeOnDispose(userInputController);

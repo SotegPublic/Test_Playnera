@@ -26,6 +26,11 @@ public sealed class DragingObjectMoveController: IUpdateble, IGetDragNotificatio
             isDragObjectOn = true;
             dragObject = notification.DragObject;
             rigidbody = dragObject.GetComponent<Rigidbody2D>();
+            
+            if(dragObject.TryGetComponent<IDragableObject>(out var component))
+            {
+                component.SetIsFreeFall(false);
+            }
         }
         else
         {
@@ -34,6 +39,12 @@ public sealed class DragingObjectMoveController: IUpdateble, IGetDragNotificatio
 
             rigidbody.velocity = Vector2.zero;
             isDragObjectOn = false;
+
+            if (dragObject.TryGetComponent<IDragableObject>(out var component))
+            {
+                component.SetIsFreeFall(true);
+            }
+
             dragObject = null;
             rigidbody = null;
         }
