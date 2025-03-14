@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public sealed class GameStarterModel
 {
+    [SerializeField] private float globalHeightLimit;
+
     [SerializeField] private DragableObjectController[] dragableObjects;
     [SerializeField] private DragSystemInitModel dragSystemInitModel;
     [SerializeField] private ScaleControllerInitModel scaleControllerInitModel;
@@ -15,5 +17,6 @@ public sealed class GameStarterModel
     public CameraMoveInitModel CameraMoveInitModel => cameraMoveInitModel;
     public SurfacesInitModel SurfacesInitModel => surfacesInitModel;
     public DragableObjectController[] DragableObjects => dragableObjects;
+    public float GlobalHeightLimit => globalHeightLimit;
 }
 
