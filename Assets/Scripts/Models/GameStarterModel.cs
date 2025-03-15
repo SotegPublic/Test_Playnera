@@ -6,7 +6,7 @@ public sealed class GameStarterModel
 {
     [SerializeField] private float globalHeightLimit;
 
-    [SerializeField] private DragableObjectController[] dragableObjects;
+    [SerializeField] private DragableObjectView[] dragableObjects;
     [SerializeField] private DragSystemInitModel dragSystemInitModel;
     [SerializeField] private ScaleControllerInitModel scaleControllerInitModel;
     [SerializeField] private CameraMoveInitModel cameraMoveInitModel;
@@ -16,7 +16,7 @@ public sealed class GameStarterModel
     public ScaleControllerInitModel ScaleControllerInitModel => scaleControllerInitModel;
     public CameraMoveInitModel CameraMoveInitModel => cameraMoveInitModel;
     public SurfacesInitModel SurfacesInitModel => surfacesInitModel;
-    public DragableObjectController[] DragableObjects => dragableObjects;
+    public DragableObjectView[] DragableObjects => dragableObjects;
     public float GlobalHeightLimit => globalHeightLimit;
 }
 
