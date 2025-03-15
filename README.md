@@ -13,10 +13,12 @@
 Описание:
 Запуск игры происходит через единую точку входа: [GameStarter](Assets/Scripts/GameStarter.cs), он создает инициализатор системы, передавая в него все модели и данные, необходимые для игры. Инициализатор создает все классы-контроллеры, а так же подписывает обсерверов на [DragNotificationsManager](Assets/Scripts/Controllers/DragFeature/DragNotificationsManager.cs) и [MainController](Assets/Scripts/Controllers/Core/MainController.cs), первый отвечает за информирование о наличии или отсутствии перетаскиваемого объекта в момент получения событий от инпута, второй занимается раздачей апдейтов и лейтапдейтов всем кому это нужно. Система управления камерой [CameraMoveController](Assets/Scripts/Controllers/Camera/CameraMoveController.cs) содержит в себе ~~стейтмашину(на минималках)~~ свитч обыкновенный, переключая способы движения в зависимости от параметров входящего оповещения. [DragController](Assets/Scripts/Controllers/DragFeature/DragController.cs) - является прослойкой межу инпутом и DragNotificationsManager, его задача определить схватил ли игрок что-либо или нет. За изменение скейла хватаемого объекта отвечает [ScaleController](Assets/Scripts/Controllers/DragFeature/ScaleController.cs). 
 
-Ну и самими объектами управляет [DragableObjectController](Assets/Scripts/Controllers/Object/DragableObjectController.cs), по хорошему его разделить на View модель и контроллеры (один отвечающий за падение объекта и второй за притяжку к точкам), но для скорости я оставил его на монобехе. Данный скрипт отвечает за поведение объекта в момент, когда игрок отпускает его, свободное падение и сближение с "точкой притяжения". В момент падения контроллер обходит все поверхности на уровне, сверяет sqrMagnitude до точек на поверхности c квадратом максимального расстояния для начала сближения. В случае обнаружения подходящей "точки притяжения", выбирает самую ближнюю и движется к ней. Если в этот момент игрок снова хватает объект, то все состояния сбрасываются.
+[DragingObjectMoveController](Assets/Scripts/Controllers/DragFeature/DragingObjectMoveController.cs) - контроллер управления объектами в момент когда игрок их хватает и перетягивает
+[FreeFallObjectsController](Assets/Scripts/Controllers/Object/FreeFallObjectsController.cs) - контроллер управления объектами в момент свободного падения, когда игрок отпускает их.
+[ObjectsStickingController](Assets/Scripts/Controllers/Object/ObjectsStickingController.cs) - контроллер поиска и сближения с ближайшей "точкой притяжения", если таковая есть на дистанции притягивания.
 
 Все реализовано на новой инпут системе.
 
 
-https://github.com/user-attachments/assets/b3c9f9c0-db64-4a86-b96f-403ba731414c
+https://github.com/user-attachments/assets/abd15686-d35c-49b9-813c-0fed13dc4b5d
 
