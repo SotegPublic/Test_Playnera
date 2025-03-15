@@ -4,26 +4,25 @@ using UnityEngine;
 public sealed class DragableObjectController : MonoBehaviour, IDragableObject, IUpdateble
 {
     [SerializeField] private LayerMask solidLayers;
-    [SerializeField] private Rigidbody2D rb2d;
 
     private SurfaceModel[] surfaces;
     private bool isFreeFall = true;
-    private float heightLimit;
 
     private bool isGoToNearestPoint;
     private Vector2 nearestPoint;
     private Vector2 startPoint;
     private float progress;
 
-
     private float attractionEdgeSquared;
     private float lerpToPointSpeed;
 
-    public void InjectParameters(SurfacesInitModel model, float globalHeightLimit)
+    public bool IsFreeFall => isFreeFall;
+    public bool IsGoToNearestPoint => isGoToNearestPoint;
+
+    public void InjectParameters(SurfacesInitModel model)
     {
         attractionEdgeSquared = model.AttractionEdge * model.AttractionEdge;
         lerpToPointSpeed = model.LerpSpeed;
-        heightLimit = globalHeightLimit;
 
         surfaces = new SurfaceModel[model.SurfaceModels.Length];
 
@@ -36,10 +35,6 @@ public sealed class DragableObjectController : MonoBehaviour, IDragableObject, I
     public void SetIsFreeFall(bool flag)
     {
         isFreeFall = flag;
-        rb2d.velocity = Vector3.zero;
-        rb2d.angularVelocity = 0f;
-        rb2d.isKinematic = isFreeFall? false: true;
-
         if(!flag && isGoToNearestPoint)
         {
             isGoToNearestPoint = false;
@@ -58,11 +53,6 @@ public sealed class DragableObjectController : MonoBehaviour, IDragableObject, I
                 startPoint = transform.position;
                 isGoToNearestPoint = true;
                 return;
-            }
-
-            if(transform.position.y <= heightLimit)
-            {
-                SetIsFreeFall(false);
             }
         }
 

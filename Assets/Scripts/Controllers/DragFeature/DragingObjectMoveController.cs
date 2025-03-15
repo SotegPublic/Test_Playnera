@@ -7,7 +7,6 @@ public sealed class DragingObjectMoveController: IUpdateble, IGetDragNotificatio
     private float cameraDistance;
     private bool isDragObjectOn;
     private GameObject dragObject;
-    private Rigidbody2D rigidbody;
 
     public DragingObjectMoveController(IInputModel playerInputModel)
     {
@@ -25,7 +24,6 @@ public sealed class DragingObjectMoveController: IUpdateble, IGetDragNotificatio
 
             isDragObjectOn = true;
             dragObject = notification.DragObject;
-            rigidbody = dragObject.GetComponent<Rigidbody2D>();
             
             if(dragObject.TryGetComponent<IDragableObject>(out var component))
             {
@@ -37,7 +35,6 @@ public sealed class DragingObjectMoveController: IUpdateble, IGetDragNotificatio
             if(!isDragObjectOn)
                 return;
 
-            rigidbody.velocity = Vector2.zero;
             isDragObjectOn = false;
 
             if (dragObject.TryGetComponent<IDragableObject>(out var component))
@@ -46,7 +43,6 @@ public sealed class DragingObjectMoveController: IUpdateble, IGetDragNotificatio
             }
 
             dragObject = null;
-            rigidbody = null;
         }
     }
 
