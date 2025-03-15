@@ -5,6 +5,7 @@ using UnityEngine;
 public sealed class GameStarterModel
 {
     [SerializeField] private float globalHeightLimit;
+    [SerializeField] private float globalGravity = 9.81f;
 
     [SerializeField] private DragableObjectView[] dragableObjects;
     [SerializeField] private DragSystemInitModel dragSystemInitModel;
@@ -18,5 +19,6 @@ public sealed class GameStarterModel
     public SurfacesInitModel SurfacesInitModel => surfacesInitModel;
     public DragableObjectView[] DragableObjects => dragableObjects;
     public float GlobalHeightLimit => globalHeightLimit;
+    public float GlobalGravity => globalGravity;
 }
 

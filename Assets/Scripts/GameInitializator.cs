@@ -11,7 +11,7 @@
         var dragController = new DragController(userInputController.InputModel, model.DragSystemInitModel, dragNotificationsManager);
         var dragingObjectMoveController = new DragingObjectMoveController(userInputController.InputModel);
         var objectStickingController = new ObjectsStickingController(objectModelsHolder.ObjectModels, model.SurfacesInitModel);
-        var freeFallController = new FreeFallObjectsController(objectModelsHolder.ObjectModels, model.GlobalHeightLimit);
+        var freeFallController = new FreeFallObjectsController(objectModelsHolder.ObjectModels, model.GlobalHeightLimit, model.GlobalGravity);
         var scaleController = new ScaleController(model.ScaleControllerInitModel);
         var cameraMoveController = new CameraMoveController(userInputController.InputModel, model.CameraMoveInitModel);
 

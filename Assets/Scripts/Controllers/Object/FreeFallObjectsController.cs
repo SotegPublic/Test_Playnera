@@ -3,11 +3,12 @@ using UnityEngine;
 public sealed class FreeFallObjectsController : IUpdateble
 {
     private float heightLimit;
-    private float gravity = 9.81f;
+    private float gravity;
     private IFreeFallModel[] objectModelss;
 
-    public FreeFallObjectsController(ObjectModel[] dragableObjectModels, float globalHeightLimit)
+    public FreeFallObjectsController(ObjectModel[] dragableObjectModels, float globalHeightLimit, float globalGravity)
     {
+        gravity = globalGravity;
         heightLimit = globalHeightLimit;
         objectModelss = dragableObjectModels;
     }
