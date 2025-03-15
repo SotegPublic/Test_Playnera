@@ -13,9 +13,9 @@
 Описание:
 Запуск игры происходит через единую точку входа: [GameStarter](Assets/Scripts/GameStarter.cs), он создает инициализатор системы, передавая в него все модели и данные, необходимые для игры. Инициализатор создает все классы-контроллеры, а так же подписывает обсерверов на [DragNotificationsManager](Assets/Scripts/Controllers/DragFeature/DragNotificationsManager.cs) и [MainController](Assets/Scripts/Controllers/Core/MainController.cs), первый отвечает за информирование о наличии или отсутствии перетаскиваемого объекта в момент получения событий от инпута, второй занимается раздачей апдейтов и лейтапдейтов всем кому это нужно. Система управления камерой [CameraMoveController](Assets/Scripts/Controllers/Camera/CameraMoveController.cs) содержит в себе ~~стейтмашину(на минималках)~~ свитч обыкновенный, переключая способы движения в зависимости от параметров входящего оповещения. [DragController](Assets/Scripts/Controllers/DragFeature/DragController.cs) - является прослойкой межу инпутом и DragNotificationsManager, его задача определить схватил ли игрок что-либо или нет. За изменение скейла хватаемого объекта отвечает [ScaleController](Assets/Scripts/Controllers/DragFeature/ScaleController.cs). 
 
-[DragingObjectMoveController](Assets/Scripts/Controllers/DragFeature/DragingObjectMoveController.cs) - контроллер управления объектами в момент когда игрок их хватает и перетягивает
-[FreeFallObjectsController](Assets/Scripts/Controllers/Object/FreeFallObjectsController.cs) - контроллер управления объектами в момент свободного падения, когда игрок отпускает их.
-[ObjectsStickingController](Assets/Scripts/Controllers/Object/ObjectsStickingController.cs) - контроллер поиска и сближения с ближайшей "точкой притяжения", если таковая есть на дистанции притягивания.
+[DragingObjectMoveController](Assets/Scripts/Controllers/DragFeature/DragingObjectMoveController.cs) - контроллер управления объектами в момент когда игрок их хватает и перетягивает. 
+[FreeFallObjectsController](Assets/Scripts/Controllers/Object/FreeFallObjectsController.cs) - контроллер управления объектами в момент свободного падения, когда игрок отпускает их. 
+[ObjectsStickingController](Assets/Scripts/Controllers/Object/ObjectsStickingController.cs) - контроллер поиска и сближения с ближайшей "точкой притяжения", если таковая есть на дистанции притягивания. 
 
 Все реализовано на новой инпут системе.
 
