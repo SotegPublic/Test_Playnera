@@ -35,7 +35,6 @@ public sealed class ObjectsStickingController: IUpdateble
                     objectModels[i].NearestPoint = point;
                     objectModels[i].StartPoint = objectModels[i].ObjectTransform.position;
                     objectModels[i].ObjectView.SetIsGoToNearestPoint(true);
-                    continue;
                 }
             }
 
