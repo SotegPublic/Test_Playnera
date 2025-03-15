@@ -27,6 +27,7 @@ public sealed class ObjectsStickingController: IUpdateble
     {
         for (int i = 0; i < objectModels.Length; i++)
         {
+            
             if (objectModels[i].IsFreeFall)
             {
                 if (TryFindNearContactPoint(objectModels[i].ObjectTransform, out var point))
@@ -42,6 +43,11 @@ public sealed class ObjectsStickingController: IUpdateble
             if (objectModels[i].IsGoToNearestPoint)
             {
                 LerpToPoint(objectModels[i]);
+            }
+            else
+            {
+                if(objectModels[i].Progress != 0)
+                    objectModels[i].Progress = 0;
             }
         }
     }

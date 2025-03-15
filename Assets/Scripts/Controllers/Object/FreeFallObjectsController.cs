@@ -26,12 +26,16 @@ public sealed class FreeFallObjectsController : IUpdateble
 
                 objectModelss[i].ObjectTransform.Translate(0, objectModelss[i].CurrentFallSpeed * Time.deltaTime, 0);
             }
+            else
+            {
+                if (objectModelss[i].CurrentFallSpeed != 0)
+                    objectModelss[i].ResetSpeed();
+            }
 
             if (objectModelss[i].ObjectTransform.position.y <= heightLimit)
             {
                 objectModelss[i].ObjectView.SetIsFreeFall(false);
                 objectModelss[i].ResetSpeed();
-
             }
         }
     }
