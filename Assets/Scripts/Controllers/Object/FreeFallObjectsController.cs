@@ -1,66 +1,37 @@
 using UnityEngine;
 
-public class FreeFallObjectsController : IUpdateble
+public sealed class FreeFallObjectsController : IUpdateble
 {
     private float heightLimit;
     private float gravity = 9.81f;
-    private ObjectModel[] objects;
+    private IFreeFallModel[] objectModelss;
 
-    public FreeFallObjectsController(DragableObjectController[] objectControllers, float globalHeightLimit)
+    public FreeFallObjectsController(ObjectModel[] dragableObjectModels, float globalHeightLimit)
     {
         heightLimit = globalHeightLimit;
-        objects = new ObjectModel[objectControllers.Length];
-
-        for(int i = 0; i < objectControllers.Length; i++)
-        {
-            objects[i] = new ObjectModel(objectControllers[i]);
-        }
+        objectModelss = dragableObjectModels;
     }
 
     public void LocalUpdate()
     {
-        for(int i = 0; i < objects.Length;i++)
+        for(int i = 0; i < objectModelss.Length;i++)
         {
-            if (objects[i].IsGoToNearestPoint)
+            if (objectModelss[i].IsGoToNearestPoint)
                 return;
 
-            if (objects[i].IsFreeFall)
+            if (objectModelss[i].IsFreeFall)
             {
-                objects[i].CurrentSpeed -= gravity * Time.deltaTime;
+                objectModelss[i].CurrentFallSpeed -= gravity * Time.deltaTime;
 
-                objects[i].ObjectTransform.Translate(0, objects[i].CurrentSpeed * Time.deltaTime, 0);
+                objectModelss[i].ObjectTransform.Translate(0, objectModelss[i].CurrentFallSpeed * Time.deltaTime, 0);
             }
 
-            if (objects[i].ObjectTransform.position.y <= heightLimit)
+            if (objectModelss[i].ObjectTransform.position.y <= heightLimit)
             {
-                objects[i].ObjectController.SetIsFreeFall(false);
-                objects[i].ResetSpeed();
+                objectModelss[i].ObjectView.SetIsFreeFall(false);
+                objectModelss[i].ResetSpeed();
 
             }
         }
-    }
-}
-
-public class ObjectModel
-{
-    public float CurrentSpeed;
-
-    private Transform objectTransform;
-    private DragableObjectController objectController;
-
-    public bool IsFreeFall => objectController.IsFreeFall;
-    public bool IsGoToNearestPoint => objectController.IsGoToNearestPoint;
-    public Transform ObjectTransform => objectTransform;
-    public DragableObjectController ObjectController => objectController;
-
-    public ObjectModel(DragableObjectController dragableObjectController)
-    {
-        objectController = dragableObjectController;
-        objectTransform = objectController.gameObject.transform;
-    }
-
-    public void ResetSpeed()
-    {
-        CurrentSpeed = 0;
     }
 }

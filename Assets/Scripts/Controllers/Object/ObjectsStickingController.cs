@@ -1,86 +1,71 @@
-using System;
 using UnityEngine;
 
-public sealed class DragableObjectController : MonoBehaviour, IDragableObject, IUpdateble
+public sealed class ObjectsStickingController: IUpdateble
 {
-    [SerializeField] private LayerMask solidLayers;
-
+    private IStickingModel[] objectModels;
     private SurfaceModel[] surfaces;
-    private bool isFreeFall = true;
-
-    private bool isGoToNearestPoint;
-    private Vector2 nearestPoint;
-    private Vector2 startPoint;
-    private float progress;
 
     private float attractionEdgeSquared;
     private float lerpToPointSpeed;
 
-    public bool IsFreeFall => isFreeFall;
-    public bool IsGoToNearestPoint => isGoToNearestPoint;
-
-    public void InjectParameters(SurfacesInitModel model)
+    public ObjectsStickingController(ObjectModel[] dragableObjectModels, SurfacesInitModel model)
     {
+        objectModels = dragableObjectModels;
+
         attractionEdgeSquared = model.AttractionEdge * model.AttractionEdge;
         lerpToPointSpeed = model.LerpSpeed;
 
         surfaces = new SurfaceModel[model.SurfaceModels.Length];
 
-        for(int i = 0; i < model.SurfaceModels.Length; i++)
+        for (int i = 0; i < model.SurfaceModels.Length; i++)
         {
             surfaces[i] = model.SurfaceModels[i];
         }
     }
 
-    public void SetIsFreeFall(bool flag)
-    {
-        isFreeFall = flag;
-        if(!flag && isGoToNearestPoint)
-        {
-            isGoToNearestPoint = false;
-            progress = 0f;
-        }
-    }
-
     public void LocalUpdate()
     {
-        if (isFreeFall)
+        for (int i = 0; i < objectModels.Length; i++)
         {
-            if (TryFindNearContactPoint(out var point))
+            if (objectModels[i].IsFreeFall)
             {
-                SetIsFreeFall(false);
-                nearestPoint = point;
-                startPoint = transform.position;
-                isGoToNearestPoint = true;
-                return;
+                if (TryFindNearContactPoint(objectModels[i].ObjectTransform, out var point))
+                {
+                    objectModels[i].ObjectView.SetIsFreeFall(false);
+                    objectModels[i].NearestPoint = point;
+                    objectModels[i].StartPoint = objectModels[i].ObjectTransform.position;
+                    objectModels[i].ObjectView.SetIsGoToNearestPoint(true);
+                    continue;
+                }
+            }
+
+
+            if (objectModels[i].IsGoToNearestPoint)
+            {
+                LerpToPoint(objectModels[i]);
             }
         }
-
-        if(isGoToNearestPoint)
-        {
-            LerpToPoint();
-        }
     }
 
-    private void LerpToPoint()
+    private void LerpToPoint(IStickingModel objectModel)
     {
-        progress += Time.deltaTime * lerpToPointSpeed;
+        objectModel.Progress += Time.deltaTime * lerpToPointSpeed;
 
-        transform.position = Vector2.Lerp(startPoint, nearestPoint, progress);
+        objectModel.ObjectTransform.position = Vector2.Lerp(objectModel.StartPoint, objectModel.NearestPoint, objectModel.Progress);
 
-        if(progress >= 1)
+        if (objectModel.Progress >= 1)
         {
-            isGoToNearestPoint = false;
-            progress = 0;
+            objectModel.ObjectView.SetIsGoToNearestPoint(false);
+            objectModel.Progress = 0;
         }
     }
 
-    private bool TryFindNearContactPoint(out Vector2 point)
+    private bool TryFindNearContactPoint(Transform objecTransform, out Vector2 point)
     {
         Vector2 nearestPoint = Vector2.zero;
         float nearestDistance = 1000f;
 
-        Vector2 position2d = transform.position;
+        Vector2 position2d = objecTransform.position;
 
         for (int i = 0; i < surfaces.Length; i++)
         {

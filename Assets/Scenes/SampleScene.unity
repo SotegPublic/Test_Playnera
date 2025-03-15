@@ -288,8 +288,8 @@ GameObject:
   m_Component:
   - component: {fileID: 384470745}
   - component: {fileID: 384470744}
-  - component: {fileID: 384470746}
   - component: {fileID: 384470747}
+  - component: {fileID: 384470748}
   m_Layer: 3
   m_Name: apple
   m_TagString: Untagged
@@ -364,21 +364,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &384470746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384470741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f03ea7d3639de5c48ad9994830886d3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  solidLayers:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!58 &384470747
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -414,6 +399,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.43958315
+--- !u!114 &384470748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384470741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea27be6a1b67dcf46a162a5376f1d7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &449857669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1085,7 @@ MonoBehaviour:
   model:
     globalHeightLimit: -0.9
     dragableObjects:
-    - {fileID: 384470746}
+    - {fileID: 384470748}
     dragSystemInitModel:
       mask:
         serializedVersion: 2
